@@ -4,7 +4,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity
 )
-from auth_service.models import db, User
+from models import db, User
 
 # Create a Blueprint for auth routes
 # Blueprint = a group of related routes

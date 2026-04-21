@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
-from auth_service.config import Config
-from auth_service.models import db
-from auth_service.routes import auth_bp
+from config import Config
+from models import db
+from routes import auth_bp
 
 def create_app():
     # ── Create Flask app ────────────────────────────

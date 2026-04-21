@@ -3,8 +3,8 @@ import pytest
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from auth_service.app import create_app
-from auth_service.models import db
+from app import create_app
+from models import db
 @pytest.fixture
 def client():
     app = create_app()

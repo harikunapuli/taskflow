@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        MYSQL_PASSWORD   = credentials('mysql-password')
-        JWT_SECRET_KEY   = credentials('jwt-secret')
+        MYSQL_PASSWORD = credentials('mysql-password')
+        JWT_SECRET_KEY = credentials('jwt-secret')
     }
 
     stages {
@@ -18,22 +18,22 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running pytest...'
-                bat 'pip install -r auth-service/requirements.txt'
-                bat 'pytest auth-service/tests/ --tb=short'
+                sh 'pip install -r auth-service/requirements.txt'
+                sh 'pytest auth-service/tests/ -v --tb=short'
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 echo 'Building Docker images...'
-                bat 'docker-compose build'
+                sh 'docker-compose build'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Starting all containers...'
-                bat 'docker-compose up -d'
+                sh 'docker-compose up -d'
             }
         }
 

@@ -6,8 +6,8 @@ networks:
 
 services:
 
-  auth-service:
-    build: ./auth-service
+  auth_service:
+    build: ./auth_service
     container_name: taskflow-auth
     networks:
       - taskflow-net
@@ -18,7 +18,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./auth-service:/app
+      - ./auth_service:/app
 
   task-service:
     build: ./task-service

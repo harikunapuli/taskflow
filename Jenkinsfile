@@ -15,25 +15,41 @@ pipeline {
             }
         }
 
+        stage('Install Python') {
+            steps {
+                echo 'Installing Python and pip...'
+                sh '''
+                    apt-get update -y
+                    apt-get install -y python3 python3-pip python3-venv
+                    python3 --version
+                    pip3 --version
+                '''
+            }
+        }
+
         stage('Test') {
             steps {
                 echo 'Running pytest...'
-                sh 'pip install -r auth-service/requirements.txt'
-                sh 'pytest auth-service/tests/ -v --tb=short'
+                sh '''
+                    cd auth-service
+                    pip3 install -r requirements.txt --break-system-packages
+                    pip3 install pytest pytest-flask --break-system-packages
+                    python3 -m pytest tests/ -v --tb=short
+                '''
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 echo 'Building Docker images...'
-                sh 'docker-compose build'
+                sh 'docker compose build'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Starting all containers...'
-                sh 'docker-compose up -d'
+                sh 'docker compose up -d'
             }
         }
 

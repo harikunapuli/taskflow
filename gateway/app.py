@@ -1,11 +1,13 @@
 import requests
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 AUTH_SERVICE_URL  = os.getenv("AUTH_SERVICE_URL", "http://localhost:5001")
 TASK_SERVICE_URL  = os.getenv("TASK_SERVICE_URL", "http://localhost:5002")
